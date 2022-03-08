@@ -10,8 +10,8 @@ namespace RaceTrack.RaceTrack.Drivers
 {
     public abstract class Driver
     {
-        public string Name { get; set; }
-        public int SkillLevel { get; set; }
+        public string Name { get; protected init; }
+        protected int SkillLevel { get; init; }
         public RaceCar Car { get; set; }
 
         protected Driver(RaceCar car)
@@ -34,5 +34,9 @@ namespace RaceTrack.RaceTrack.Drivers
 
         public abstract void Drive();
 
+        public virtual void StopEngine()
+        {
+            Car.StopEngine();
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace RaceTrack.RaceTrack.Cars
 
         public string Name { get; set; }
         public int Position { get; set; }
-        public int TopSpeed { get; set; }
+        protected int TopSpeed { get; set; }
 
         public void Accelerate(int driverSkill)
         {
@@ -20,15 +20,26 @@ namespace RaceTrack.RaceTrack.Cars
             var randomRange = random.Next(-1, 20);
             Position += driverSkill * TopSpeed * randomRange;
 
-            if (Position > 0)
-                Console.WriteLine($"{Name} moves ahead to {Position}!");
-            else if (Position < 0)
-                Console.WriteLine($"{Name} moves backwards to {Position}!??");
-            else
-                Console.WriteLine($"{Name} has stopped!?");
+            switch (Position)
+            {
+                case > 0:
+                    Console.WriteLine($"{Name} moves ahead to {Position}!");
+                    break;
+                case < 0:
+                    Console.WriteLine($"{Name} moves backwards to {Position}!??");
+                    break;
+                default:
+                    Console.WriteLine($"{Name} has stopped!?");
+                    break;
+            }
         }
 
         public abstract void StartEngine();
+
+        public virtual void StopEngine()
+        {
+            Console.WriteLine($"The {Name}'s engine has shut down");
+        }
 
         public virtual void Brake()
         {
